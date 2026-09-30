@@ -28,9 +28,16 @@ fingernail with billions of transistors in it. The primer lays out the 13 stages
 that get you from one to the other. Each stage is handled by a different kind of
 engineer, and each one turns the design into something closer to silicon.
 
-This week is about seeing that whole map. Starting next week we zoom into one
-small piece of it: a single **PE**, short for processing element. That is the
-unit you will build and carry all the way to a layout.
+This week is about seeing that whole map, and about what we are putting on it.
+Many AI accelerators get their speed from one idea: instead of one big
+processor fetching from memory over and over, build a grid of small units that
+pass data directly to their neighbours. The grid is called a **systolic
+array**. Each unit in it is a **PE**, short for processing element. It is not
+the only way to build an accelerator, but it is how Lambda is built, so it is
+the way we go.
+
+Starting next week we zoom into exactly one. You will build a single PE and
+carry it all the way to a layout.
 
 ## Do
 
@@ -45,8 +52,8 @@ unit you will build and carry all the way to a layout.
 
 4. Draw the whole flow on one page, as boxes and arrows. Label where each of our
    4 teams works (ARCH, RTL, DV, PD). Mark where our PE sits, and be clear that
-   it is one small piece of Lambda, and Lambda is one small piece of what a chip
-   company does.
+   it is one small piece of a systolic array, and the array is one small piece
+   of what a chip company does.
 
 ## Turn in
 

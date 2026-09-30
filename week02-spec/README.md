@@ -10,17 +10,27 @@ No tools this week. Handwritten only. No typed diagrams, no code.
 Watch [EEVblog #1249, Timing Diagrams Explained](https://www.youtube.com/watch?v=AUGRBhfAabY).
 Do this first. You cannot do this week without knowing how to read a waveform.
 
+## Read
+
+[In-Datacenter Performance Analysis of a Tensor Processing Unit](https://arxiv.org/pdf/1704.04760),
+Google, 2017. Sections 1 through 4, then Section 8. This is the paper that put
+systolic arrays at the center of AI chip design. Skim the benchmark tables.
+Read for the architecture: what the Matrix Multiply Unit is, how data moves
+through it, and, in Section 8, what people got wrong about accelerators.
+
 ## Background
 
-Lambda's compute core is a grid of small units called **PEs**, short for
-processing elements, wired together. Each PE does one job over and over: take a
-number, multiply it by a weight it is holding, add that to a running total from
-its neighbour, and pass everything along.
+Our compute core is a systolic array: a grid of **PEs** wired together. The
+TPU paper's Matrix Multiply Unit is the same structure at industrial scale:
+65,536 of them. Each PE does
+one job over and over: take a number, multiply it by a weight it is holding,
+add that to a running total from its neighbour, and pass everything along.
 
 The weight matters a lot. Swapping in a new weight without stopping the whole
 grid is the trickiest part of the design. That is why each PE holds **two**
 copies of the weight: one it is using right now, and one waiting in the
-background until it is told to swap.
+background until it is told to swap. The TPU does the same thing: its matrix
+unit holds one tile of weights plus a second for double buffering.
 
 A timing diagram shows what a signal does, cycle by cycle, against the clock.
 Every row is a signal, every column is a clock cycle.
@@ -62,20 +72,24 @@ to read with a binary point 8 places from the right. So 1.0 is stored as 256 and
 
 ## Do
 
-1. **Port by port.** For every port, one plain sentence: what it does, and when
+1. **From the paper.** Two sentences: what does one PE in the Matrix Multiply
+   Unit do each clock cycle, and where does its result go? Then pick one
+   fallacy or pitfall from Section 8 and say in a sentence why it matters.
+
+2. **Port by port.** For every port, one plain sentence: what it does, and when
    it changes.
 
-2. **Timing diagram 1, reset.** At least 4 clock cycles, including the moment
+3. **Timing diagram 1, reset.** At least 4 clock cycles, including the moment
    reset happens.
 
-3. **Timing diagram 2, weight preload and switch.** Show a new weight loading
+4. **Timing diagram 2, weight preload and switch.** Show a new weight loading
    into the background register while the PE is still computing with the old one.
    Then show the switch.
 
-4. **Timing diagram 3, steady streaming.** Three back to back valid inputs
+5. **Timing diagram 3, steady streaming.** Three back to back valid inputs
    flowing through.
 
-5. **Answer in writing, in plain terms:**
+6. **Answer in writing, in plain terms:**
    - A new weight and a switch signal both arrive on the same clock cycle. What
      happens?
    - The valid signal drops for one cycle in the middle of streaming, then comes
@@ -92,6 +106,8 @@ Photo or scan of your handwritten notes and all 3 diagrams. One PDF.
 
 ## Done means
 
+- The paper answers name the operation, where the result goes, and one real
+  fallacy from Section 8
 - Every port has a correct, plain explanation
 - All 3 diagrams show the right behaviour, cycle by cycle
 - All 3 written answers point at specific signals, not a vague guess
