@@ -72,8 +72,12 @@ to read with a binary point 8 places from the right. So 1.0 is stored as 256 and
 
 ## Do
 
-1. **From the paper.** Two sentences: what does one PE in the Matrix Multiply
-   Unit do each clock cycle, and where does its result go? Then pick one
+1. **From the paper.** Four to five sentences, in your own words: what the TPU
+   is at the block level, and how a matrix multiply moves through it, from the
+   host sending instructions to results landing in the accumulators. End at
+   one PE inside the Matrix Multiply Unit: what it does each clock cycle, and
+   where its result goes. The PE you spec below is that same unit at a smaller
+   scale, and its ports are how those numbers get in and out. Then pick one
    fallacy or pitfall from Section 8 and say in a sentence why it matters.
 
 2. **Port by port.** For every port, one plain sentence: what it does, and when
@@ -106,8 +110,8 @@ Photo or scan of your handwritten notes and all 3 diagrams. One PDF.
 
 ## Done means
 
-- The paper answers name the operation, where the result goes, and one real
-  fallacy from Section 8
+- The paper answer traces a matrix multiply through the TPU's blocks, gets one
+  PE's job right, and names one real fallacy from Section 8
 - Every port has a correct, plain explanation
 - All 3 diagrams show the right behaviour, cycle by cycle
 - All 3 written answers point at specific signals, not a vague guess
